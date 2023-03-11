@@ -1,36 +1,14 @@
-name: 'Google Chat Action'
-author: 'D Ther Htun'
-description: 'Github actions for google chat Room Bot'
+name: "Google Chat Action for Github Pull Request Reviews"
+author: "Matt Notarangelo"
+description: "Github actions for google chat Room Bot"
 branding:
-  icon: 'at-sign'
-  color: 'green'
+  icon: "at-sign"
+  color: "green"
 inputs:
-  project: 
-    description: 'Github Project Name'
-    required: true
-  commit:
-    description: 'Github Commit ID'
-    required: true
-  branch:
-    description: 'Github Branch'
-    required: true
-  status:
-    description: 'Github Action Build Status'
-    required: true
-  actionid:
-    description: 'Current Running Action ID'
-    required: true
   webhook:
-    description: 'Google Chat Webhook URL'
+    description: "Google Chat Webhook URL"
     required: true
 
 runs:
-  using: 'docker'
-  image: 'docker://dther/google-chat-action:v0.8'
-  args:
-    - ${{ inputs.project }}
-    - ${{ inputs.commit }}
-    - ${{ inputs.branch }}
-    - ${{ inputs.status }}
-    - ${{ inputs.actionid }}
-    - ${{ inputs.webhook }}
+  using: "node16"
+  main: "main.js"

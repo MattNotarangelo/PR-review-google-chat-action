@@ -14,21 +14,21 @@ func main() {
 		githubactions.Fatalf("Missing input 'project'")
 	}
 	commit := githubactions.GetInput("commit")
-        if commit == "" {
-                githubactions.Fatalf("Missing input 'commit'")
-        }
+	if commit == "" {
+		githubactions.Fatalf("Missing input 'commit'")
+	}
 	branch := githubactions.GetInput("branch")
-        if branch == "" {
-                githubactions.Fatalf("Missing input 'branch'")
-        }
+	if branch == "" {
+		githubactions.Fatalf("Missing input 'branch'")
+	}
 	status := githubactions.GetInput("status")
-        if status == "" {
-                githubactions.Fatalf("Missing input 'status'")
-        }
+	if status == "" {
+		githubactions.Fatalf("Missing input 'status'")
+	}
 	actionid := githubactions.GetInput("actionid")
-        if actionid == "" {
-                githubactions.Fatalf("Missing input 'actionid'")
-        }
+	if actionid == "" {
+		githubactions.Fatalf("Missing input 'actionid'")
+	}
 	webhook := githubactions.GetInput("webhook")
 	if webhook == "" {
 		githubactions.Fatalf("Missing input 'webshook'")
@@ -70,7 +70,7 @@ func main() {
         }
     ]
 }`
-	var jsonStr = []byte(fmt.Sprintf(data, project, commit, branch, status, actionid ))
+	var jsonStr = []byte(fmt.Sprintf(data, project, commit, branch, status, actionid))
 	req, err := http.NewRequest("POST", webhook, bytes.NewBuffer(jsonStr))
 	if err != nil {
 		panic(err)
