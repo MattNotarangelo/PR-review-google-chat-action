@@ -20,10 +20,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
 
       - name: Hello world action step
         id: hello
-        uses: MattNotarangelo/PR-review-google-chat-action@$GITHUB_REF
+        uses: ./
         with:
           webhook: ${{ secrets.webhook }}
       # Use the output from the `hello` step
