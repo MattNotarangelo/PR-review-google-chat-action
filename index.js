@@ -108,7 +108,7 @@ try {
     const tagger = {
       text: "<users/all>",
       thread: {
-        threadKey: github.context.payload.repository.name + github.context.payload.number,
+        threadKey: threadKey,
       },
     };
 
