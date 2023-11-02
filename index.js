@@ -29,9 +29,7 @@ try {
   let webhookUrl = core.getInput("webhook");
   webhookUrl += "&messageReplyOption=REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD";
 
-  const threadKey = github.context.payload.repository.name + github.context.payload.number;
-  console.log(threadKey);
-  console.log(github.context);
+  const threadKey = github.context.payload.repository.name + github.context.ref;
 
   if (github.context.eventName === "pull_request") {
     const context = github.context.payload.pull_request;
