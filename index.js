@@ -3,8 +3,7 @@ import github from "@actions/github";
 import fetch from "node-fetch";
 
 function post(webhookUrl, message) {
-  console.log(webhookUrl+"&messageReplyOption=REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD");
-  fetch(webhookUrl+"&messageReplyOption=REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD",{
+  fetch(webhookUrl,{
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=UTF-8",
