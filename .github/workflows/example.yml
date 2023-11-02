@@ -3,6 +3,7 @@ on: [pull_request_review]
 
 jobs:
   get_messages: 
+    runs-on: ubuntu-latest
     name: get messages
     steps:
       - shell: bash
