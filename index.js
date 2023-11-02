@@ -15,6 +15,46 @@ async function post(webhookUrl, message) {
   console.log(json);
 }
 
+function getChangesRequestedDetails() {
+  return [
+    {
+      decoratedText: {
+        icon: {
+              iconUrl: "https://www.greatmanagers.com.au/wp-content/uploads/2018/03/talktohand_trans.png"
+          },
+        text: "There are changes requested"
+      }
+    }
+  ]; 
+}
+
+function getChangesApprovedDetails() {
+  return [
+    {
+      decoratedText: {
+        icon: {
+              iconUrl: "https://t4.ftcdn.net/jpg/03/23/71/91/360_F_323719173_LcDYRnQuNiaBrRmRzsY4u6JWjj4IjvRv.jpg"
+          },
+        text: "This PR has been approved!"
+      }
+    }
+  ]; 
+}
+
+function getCommentsMadeDetails() {
+  return [
+    {
+      decoratedText: {
+        icon: {
+              iconUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnhXOc5yM0M3h9Gujc1ecDjL-A7rSg5E-gghPXmZOaDkoWHNzwStavkrrVrc2Dack180k&usqp=CAU"
+          },
+        text: "There are new comments on your PR"
+      }
+    }
+  ]; 
+}
+
+
 try {
   // // `who-to-greet` input defined in action metadata file
   // const nameToGreet = core.getInput("who-to-greet");
@@ -107,20 +147,39 @@ try {
   }
 
   if (github.context.eventName === "pull_request_review") {
-    let text = 'Comments made';
+    let widget = getCommentsMadeDetails();
     switch(github.context.payload.review.state) {
       case "changes_requested":
-        text = "Changes requested";
+        widget = getChangesRequestedDetails();
         break;
       case "approved":
-        text = "Approved!"
+        widget = getChangesApprovedDetails();
         break;
       default:
         break;
     }
 
-    const tagger = {
-      text: text,
+
+    let tagger = {
+      cardsV2: [
+        {
+          cardId: "unique-card-id",
+          card: {
+            sections: [
+              {
+                header: "Pull Request Details",
+                collapsible: false,
+                uncollapsibleWidgetsCount: 1,
+                widgets: widget
+              }
+            ]
+          }
+        }
+      ]
+    }
+
+    tagger = {
+      ...tagger,
       thread: {
         threadKey: threadKey
       }
@@ -131,3 +190,5 @@ try {
 } catch (error) {
   core.setFailed(error.message);
 }
+
+
