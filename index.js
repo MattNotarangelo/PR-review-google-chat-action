@@ -17,10 +17,10 @@ try {
 
   console.log(github.context.eventName);
   console.log(github.context.payload);
-  console.log(github.context.payload.head);
-  console.log(github.context.payload.head.ref);
 
   if (github.context.eventName === "pull_request") {
+    const context = github.context.payload.pull_request;
+
     const message = {
       cardsV2: [
         {
@@ -28,7 +28,7 @@ try {
           card: {
             header: {
               title: "New PR to review",
-              subtitle: "@" + github.context.payload.owner?.login ?? "User",
+              subtitle: "@" + context.owner?.login ?? "User",
               imageUrl: "https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png",
               imageType: "CIRCLE",
               imageAltText: "Avatar",
@@ -44,7 +44,7 @@ try {
                       startIcon: {
                         knownIcon: "DESCRIPTION",
                       },
-                      text: github.context.payload.title,
+                      text: context.title,
                     },
                   },
                   {
@@ -52,7 +52,7 @@ try {
                       icon: {
                         iconUrl: "https://cdn0.iconfinder.com/data/icons/octicons/1024/repo-512.png",
                       },
-                      text: github.context.payload.repository,
+                      text: context.repository,
                     },
                   },
                   {
@@ -60,7 +60,7 @@ try {
                       icon: {
                         iconUrl: "https://cdn0.iconfinder.com/data/icons/octicons/1024/repo-forked-512.png",
                       },
-                      text: github.context.payload.head.ref,
+                      text: context.head.ref,
                     },
                   },
                   {
@@ -70,7 +70,7 @@ try {
                           text: "View on Github",
                           onClick: {
                             openLink: {
-                              url: github.context.payload.url,
+                              url: context.url,
                             },
                           },
                         },
