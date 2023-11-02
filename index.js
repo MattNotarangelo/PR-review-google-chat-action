@@ -12,7 +12,6 @@ async function post(webhookUrl, message) {
   });
 
   const json = await response.json();
-  console.log(json);
 }
 
 function getChangesRequestedDetails() {
