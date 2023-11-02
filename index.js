@@ -2,7 +2,7 @@ import core from "@actions/core";
 import github from "@actions/github";
 import fetch from "node-fetch";
 
-function post(webhookUrl, message) {
+async function post(webhookUrl, message) {
   fetch(webhookUrl, {
     method: "POST",
     headers: {
@@ -33,7 +33,13 @@ try {
   // const payload = JSON.stringify(github.context.payload, undefined, 2);
   // console.log(`The event payload: ${payload}`);
 
-  const webhookUrl = core.getInput("webhook");
+  let webhookUrl = core.getInput("webhook");
+
+  const threadKey = "abcdefgh";
+
+  if (threadedReply !== "") {
+    webhookUrl += "&messageReplyOption=REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD";
+  }
 
   if (github.context.eventName === "pull_request") {
     const context = github.context.payload.pull_request;
@@ -105,12 +111,12 @@ try {
         },
       ],
     };
-    post(webhookUrl, message);
+    await post(webhookUrl, message);
 
-    // const tagger = {
-    //   text: "<users/all>",
-    // };
-    // post(webhookUrl, tagger);
+    const tagger = {
+      text: "<users/all>",
+    };
+    await post(webhookUrl, tagger);
   }
 } catch (error) {
   core.setFailed(error.message);
