@@ -52,7 +52,7 @@ try {
                       icon: {
                         iconUrl: "https://cdn0.iconfinder.com/data/icons/octicons/1024/repo-512.png",
                       },
-                      text: context.repository,
+                      text: context.name,
                     },
                   },
                   {
@@ -70,7 +70,7 @@ try {
                           text: "View on Github",
                           onClick: {
                             openLink: {
-                              url: context.url,
+                              url: context.html_url,
                             },
                           },
                         },
