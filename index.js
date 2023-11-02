@@ -13,12 +13,14 @@ try {
   // const payload = JSON.stringify(github.context.payload, undefined, 2);
   // console.log(`The event payload: ${payload}`);
 
-  const webhookUrl = core.getInput("webhook");
+  const webhookUrl = `https://chat.googleapis.com/v1/spaces/AAAAxoPtGWE/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=ziZrr97U_aONdw3yrZKKE2bgMf7ZMjwFyoG83oo6liQ`;
 
   const message = {
-    text: "Hello Kevin, PR has been merge ✅",
+    text: `blah blah blah ${github.context.payload.owner.login}`, 
   };
+  if(github.context.eventName === 'pull_request') {
 
+  
   fetch(webhookUrl, {
     method: "POST",
     headers: {
@@ -27,6 +29,10 @@ try {
     body: JSON.stringify(message),
   })
     .then((response) => {
+
+      const payload = JSON.stringify(github.context.payload, undefined, 2)
+      console.log(`Kevins event payload: ${payload}`);
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -35,6 +41,7 @@ try {
     .catch((error) => {
       console.error("Error sending message:", error);
     });
+  }
 } catch (error) {
   core.setFailed(error.message);
 }
