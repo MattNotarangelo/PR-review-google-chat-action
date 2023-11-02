@@ -37,7 +37,7 @@ try {
 
   const threadKey = "abcdefgh";
 
-  if (threadedReply !== "") {
+  if (threadKey !== "") {
     webhookUrl += "&messageReplyOption=REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD";
   }
 
