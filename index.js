@@ -15,7 +15,7 @@ try {
   const webhookUrl =
     "https://chat.googleapis.com/v1/spaces/AAAAxoPtGWE/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=yHxt_zQVLby4cQ4nHxbhrM_RkIUB-GCDMLpETYHWfNk";
 
-  const message = "hello world";
+  const message = `URL: ${github.context.payload.pull_request?.html_url} by ${github.context.payload.sender}`
 
   fetch(webhookUrl, {
     method: "POST",
