@@ -16,7 +16,9 @@ try {
   const webhookUrl =
     "https://chat.googleapis.com/v1/spaces/AAAAxoPtGWE/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=yHxt_zQVLby4cQ4nHxbhrM_RkIUB-GCDMLpETYHWfNk";
 
-  const message = "hello world";
+  const message = {
+    text: "Hello, this is a test message from the webhook!",
+  };
 
   fetch(webhookUrl, {
     method: "POST",
