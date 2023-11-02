@@ -2,6 +2,17 @@ name: Send notification to Google chat
 on: [pull_request_review]
 
 jobs:
+  get_messages: 
+    name: get messages
+    steps:
+      - shell: bash
+        run: |  
+          curl --location 'https://chat.googleapis.com/v1/spaces/AAAAxoPtGWE/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=yHxt_zQVLby4cQ4nHxbhrM_RkIUB-GCDMLpETYHWfNk > output.log 
+      - name: Upload output file
+        uses: actions/upload-artifact@v3
+        with:
+          name: output-log-file
+          path: output.log          
   send_notification:
     runs-on: ubuntu-latest
     steps:
