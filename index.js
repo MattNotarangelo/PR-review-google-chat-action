@@ -108,9 +108,9 @@ try {
     post(webhookUrl, message);
     
     const tagger = {
-      "text": "<users/all>",
+      text: "<users/all>",
       thread: {
-        theadKey: id
+        threadKey: id
       },
     }
     post(webhookUrl, tagger);
