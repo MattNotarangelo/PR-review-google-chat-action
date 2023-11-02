@@ -3,6 +3,7 @@ import github from "@actions/github";
 import fetch from "node-fetch";
 
 function post(webhookUrl, message) {
+  console.log(webhookUrl+"&messageReplyOption=REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD");
   fetch(webhookUrl+"&messageReplyOption=REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD",{
     method: "POST",
     headers: {
@@ -33,9 +34,6 @@ try {
   // console.log(`The event payload: ${payload}`);
 
   const webhookUrl = core.getInput("webhook");
-
-  console.log(github.context.eventName);
-  console.log(github.context.payload);
 
   if (github.context.eventName === "pull_request") {
     const context = github.context.payload.pull_request;
