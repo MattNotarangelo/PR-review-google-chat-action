@@ -41,7 +41,7 @@ try {
 
     const message = {
       thread: {
-        theadKey: id
+        threadKey: "jerome"
       },
       cardsV2: [
         {
