@@ -16,7 +16,7 @@ try {
   const webhookUrl = core.getInput("webhook");
 
   const message = {
-    formattedText: "Hello, this is a test message from the webhook :{gopher-dance}: :{thumbs-up}: :smile:!",
+    text: "Hello, this is a test message from the webhook :{gopher-dance}: :{thumbs-up}: :smile:!",
   };
 
   fetch(webhookUrl, {
