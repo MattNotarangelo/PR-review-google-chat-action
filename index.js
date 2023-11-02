@@ -13,11 +13,10 @@ try {
   // const payload = JSON.stringify(github.context.payload, undefined, 2);
   // console.log(`The event payload: ${payload}`);
 
-  const webhookUrl =
-    "https://chat.googleapis.com/v1/spaces/AAAAxoPtGWE/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=yHxt_zQVLby4cQ4nHxbhrM_RkIUB-GCDMLpETYHWfNk";
+  const webhookUrl = core.getInput("webhook");
 
   const message = {
-    text: "Hello, this is a test message from the webhook!",
+    text: "Hello, this is a test message from the webhook :gopher-dance:!",
   };
 
   fetch(webhookUrl, {
