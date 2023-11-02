@@ -36,7 +36,7 @@ try {
 
     const message = {
       thread: {
-        threadKey: id,
+        threadKey: github.context.payload.repository.name + github.context.payload.number,
       },
       cardsV2: [
         {
@@ -104,6 +104,9 @@ try {
 
     const tagger = {
       text: "<users/all>",
+      thread: {
+        threadKey: github.context.payload.repository.name + github.context.payload.number,
+      },
     };
     await post(webhookUrl, tagger);
   }
