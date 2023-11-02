@@ -3,7 +3,7 @@ import github from "@actions/github";
 import fetch from "node-fetch";
 
 function post(webhookUrl, message) {
-  fetch(webhookUrl, {
+  fetch(webhookUrl+"&messageReplyOption=REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD",{
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=UTF-8",
@@ -39,8 +39,12 @@ try {
 
   if (github.context.eventName === "pull_request") {
     const context = github.context.payload.pull_request;
+    const id = github.context.payload.pull_request.id;
 
     const message = {
+      thread: {
+        theadKey: id
+      },
       cardsV2: [
         {
           cardId: "unique-card-id",
@@ -106,7 +110,10 @@ try {
     post(webhookUrl, message);
     
     const tagger = {
-      "text": "<users/all>"
+      "text": "<users/all>",
+      thread: {
+        theadKey: id
+      },
     }
     post(webhookUrl, tagger);
   }
