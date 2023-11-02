@@ -32,6 +32,7 @@ try {
   const threadKey = github.context.payload.repository.name + github.context.ref;
 
   console.log(github);
+  console.log(github.context.payload.review)
   
   if (github.context.eventName === "pull_request") {
     const context = github.context.payload.pull_request;
