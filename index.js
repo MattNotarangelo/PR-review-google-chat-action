@@ -11,7 +11,9 @@ async function post(webhookUrl, message) {
     body: JSON.stringify(message),
   });
 
-  response.json().then((j) => console.log(j.body));
+  const json = await response.json();
+  // just log ‘json’
+  console.log(json);
 }
 
 try {
