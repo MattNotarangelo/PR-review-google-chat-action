@@ -107,11 +107,23 @@ try {
   }
 
   if (github.context.eventName === "pull_request_review") {
+    let text = 'Comments made';
+    switch(github.context.payload.review.state) {
+      case "changes_requested":
+        text = "Changes requested";
+        break;
+      case "approved":
+        text = "Approved!"
+        break;
+      default:
+        break;
+    }
+
     const tagger = {
-      text: "<users/all>",
+      text: text,
       thread: {
-        threadKey: threadKey,
-      },
+        threadKey: threadKey
+      }
     };
 
     await post(webhookUrl, tagger);
