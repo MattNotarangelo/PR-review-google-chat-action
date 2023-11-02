@@ -16,7 +16,7 @@ try {
   const webhookUrl = core.getInput("webhook");
 
   const message = {
-    text: "Hello Amogh, PR has been merge ✅",
+    text: "Hello Kevin, PR has been merge ✅",
   };
 
   fetch(webhookUrl, {
