@@ -52,7 +52,7 @@ try {
                       icon: {
                         iconUrl: "https://cdn0.iconfinder.com/data/icons/octicons/1024/repo-512.png",
                       },
-                      text: context.repository.name,
+                      text: github.context.payload.repository.name,
                     },
                   },
                   {
