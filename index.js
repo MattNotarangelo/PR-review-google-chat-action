@@ -18,14 +18,19 @@ try {
   console.log(github.context.eventName);
   console.log(github.context.payload);
 
+  if (github.context.eventName !== "pull_request") {
+    console.log("received" + github.context.eventName);
+    return;
+  }
+
   const message = {
     cardsV2: [
       {
         cardId: "unique-card-id",
         card: {
           header: {
-            title: "mn-test A PR review has been requested",
-            subtitle: "@Amogh Shetty",
+            title: "New PR to review",
+            subtitle: "@" + payload.context.payload.owner.login,
             imageUrl: "https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png",
             imageType: "CIRCLE",
             imageAltText: "Avatar",
@@ -41,7 +46,7 @@ try {
                     startIcon: {
                       knownIcon: "DESCRIPTION",
                     },
-                    text: "Add new Partner Ids in appsettings #1",
+                    text: github.context.payload.title,
                   },
                 },
                 {
@@ -57,7 +62,7 @@ try {
                     icon: {
                       iconUrl: "https://cdn0.iconfinder.com/data/icons/octicons/1024/repo-forked-512.png",
                     },
-                    text: "my-branch-name",
+                    text: github.context.payload.head.ref,
                   },
                 },
                 {
@@ -67,7 +72,7 @@ try {
                         text: "View on Github",
                         onClick: {
                           openLink: {
-                            url: "https://github.com/ROKT/roktathon-github-pr-bot/pull/1",
+                            url: github.context.payload.url,
                           },
                         },
                       },
