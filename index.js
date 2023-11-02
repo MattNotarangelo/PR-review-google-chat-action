@@ -32,10 +32,11 @@ try {
   if (github.context.eventName === "pull_request") {
     const context = github.context.payload.pull_request;
     const id = github.context.payload.pull_request.id;
+    const threadKey = github.context.payload.repository.name + github.context.payload.number;
 
     const message = {
       thread: {
-        threadKey: github.context.payload.repository.name + github.context.payload.number,
+        threadKey: threadKey,
       },
       cardsV2: [
         {
@@ -100,13 +101,16 @@ try {
       ],
     };
     await post(webhookUrl, message);
+  }
 
+  if (github.context.eventName === "pull_request_review") {
     const tagger = {
       text: "<users/all>",
       thread: {
         threadKey: github.context.payload.repository.name + github.context.payload.number,
       },
     };
+    
     await post(webhookUrl, tagger);
   }
 } catch (error) {
