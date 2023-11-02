@@ -11,7 +11,7 @@
 #           webhook: "https://chat.googleapis.com/v1/spaces/AAAAsuwCCuQ/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=YIIweNCcTvTmNy0pqJ8og16xtORgfQBTKqlaMEELHPE%3D"
 
 name: Send notification to Google chat
-on: [push]
+on: [push, pull_request, pull_request_review, pull_request_review_comment]
 
 jobs:
   hello_world_job:

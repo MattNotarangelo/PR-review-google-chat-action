@@ -16,7 +16,67 @@ try {
   const webhookUrl = core.getInput("webhook");
 
   const message = {
-    text: "Hello Amogh, PR has been merge ✅",
+    cardsV2: [
+      {
+        cardId: "unique-card-id",
+        card: {
+          header: {
+            title: "mn-test A PR review has been requested",
+            subtitle: "@Amogh Shetty",
+            imageUrl: "https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png",
+            imageType: "CIRCLE",
+            imageAltText: "Avatar",
+          },
+          sections: [
+            {
+              header: "Pull Request Details",
+              collapsible: false,
+              uncollapsibleWidgetsCount: 1,
+              widgets: [
+                {
+                  decoratedText: {
+                    startIcon: {
+                      knownIcon: "DESCRIPTION",
+                    },
+                    text: "Add new Partner Ids in appsettings #1",
+                  },
+                },
+                {
+                  decoratedText: {
+                    icon: {
+                      iconUrl: "https://cdn0.iconfinder.com/data/icons/octicons/1024/repo-512.png",
+                    },
+                    text: "widget-api",
+                  },
+                },
+                {
+                  decoratedText: {
+                    icon: {
+                      iconUrl: "https://cdn0.iconfinder.com/data/icons/octicons/1024/repo-forked-512.png",
+                    },
+                    text: "my-branch-name",
+                  },
+                },
+                {
+                  buttonList: {
+                    buttons: [
+                      {
+                        text: "View on Github",
+                        onClick: {
+                          openLink: {
+                            url: "https://github.com/ROKT/roktathon-github-pr-bot/pull/1",
+                          },
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      },
+    ],
   };
 
   fetch(webhookUrl, {
