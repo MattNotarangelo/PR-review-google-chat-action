@@ -13,9 +13,9 @@ func generateTemplate(ghc *gh.GitHubContext) []byte {
 
 	data := `{
         "cards": [
-            {
+            { 
                 "header": {
-                    "title": "Code review requested on",
+                    "title": "Code1 review requested on",
                     "subtitle": "",
                     "imageUrl": "https://github.githubassets.com/images/modules/logos_page/Octocat.png",
                     "imageStyle": "IMAGE"
