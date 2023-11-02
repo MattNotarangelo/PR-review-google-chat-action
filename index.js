@@ -11,17 +11,7 @@ async function post(webhookUrl, message) {
     body: JSON.stringify(message),
   });
 
-  response
-    .then((resp) => {
-      if (!resp.ok) {
-        console.log(resp.json());
-        throw new Error(`HTTP error! Status: ${resp.status}`);
-      }
-      console.log("Message sent successfully!");
-    })
-    .catch((error) => {
-      console.error("Error sending message:", error);
-    });
+  console.log(response.json());
 }
 
 try {
