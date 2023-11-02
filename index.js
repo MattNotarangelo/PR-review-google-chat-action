@@ -34,6 +34,8 @@ try {
     const id = github.context.payload.pull_request.id;
     const threadKey = github.context.payload.repository.name + github.context.payload.number;
 
+    console.log(threadKey);
+
     const message = {
       thread: {
         threadKey: threadKey,
@@ -110,7 +112,7 @@ try {
         threadKey: github.context.payload.repository.name + github.context.payload.number,
       },
     };
-    
+
     await post(webhookUrl, tagger);
   }
 } catch (error) {
