@@ -17,6 +17,8 @@ try {
 
   console.log(github.context.eventName);
   console.log(github.context.payload);
+  console.log(github.context.payload.head);
+  console.log(github.context.payload.head.ref);
 
   if (github.context.eventName === "pull_request") {
     const message = {
