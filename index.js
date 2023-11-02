@@ -15,6 +15,9 @@ try {
 
   const webhookUrl = core.getInput("webhook");
 
+  console.log(github.context.eventName);
+  console.log(github.context.payload);
+
   const message = {
     cardsV2: [
       {
@@ -46,7 +49,7 @@ try {
                     icon: {
                       iconUrl: "https://cdn0.iconfinder.com/data/icons/octicons/1024/repo-512.png",
                     },
-                    text: "widget-api",
+                    text: github.context.payload.repository,
                   },
                 },
                 {
