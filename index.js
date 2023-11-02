@@ -3,17 +3,19 @@ import github from "@actions/github";
 import fetch from "node-fetch";
 
 async function post(webhookUrl, message) {
-  fetch(webhookUrl, {
+  const response = await fetch(webhookUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=UTF-8",
     },
     body: JSON.stringify(message),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        console.log(response.json());
-        throw new Error(`HTTP error! Status: ${response.status}`);
+  });
+
+  response
+    .then((resp) => {
+      if (!resp.ok) {
+        console.log(resp.json());
+        throw new Error(`HTTP error! Status: ${resp.status}`);
       }
       console.log("Message sent successfully!");
     })
