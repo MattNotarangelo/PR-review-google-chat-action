@@ -32,7 +32,7 @@ jobs:
     steps:
       - name: Hello world action step
         id: hello
-        uses: actions/hello-world-javascript-action@${{ github.ref_name }}
+        uses: actions/hello-world-javascript-action@mn/js-test
         with:
           who-to-greet: "Mona the Octocat"
       # Use the output from the `hello` step
