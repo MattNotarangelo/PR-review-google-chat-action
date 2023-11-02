@@ -28,12 +28,7 @@ try {
   // console.log(`The event payload: ${payload}`);
 
   let webhookUrl = core.getInput("webhook");
-
-  const threadKey = "abcdefgh";
-
-  if (threadKey !== "") {
-    webhookUrl += "&messageReplyOption=REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD";
-  }
+  webhookUrl += "&messageReplyOption=REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD";
 
   if (github.context.eventName === "pull_request") {
     const context = github.context.payload.pull_request;
@@ -41,7 +36,7 @@ try {
 
     const message = {
       thread: {
-        threadKey: "jerome",
+        threadKey: id,
       },
       cardsV2: [
         {
