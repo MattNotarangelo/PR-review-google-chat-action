@@ -1,18 +1,13 @@
-name: "Google Chat Action for Github PR Reviews"
-author: "MattNotarangelo"
-description: "Github actions for google chat Room Bot"
-
-branding:
-  icon: "at-sign"
-  color: "green"
-
+name: "Hello World"
+description: "Greet someone and record the time"
 inputs:
-  webhook:
-    description: "Google Chat Webhook URL"
+  who-to-greet: # id of input
+    description: "Who to greet"
     required: true
-
+    default: "World"
+outputs:
+  time: # id of output
+    description: "The time we greeted you"
 runs:
-  using: "docker"
-  image: "docker://mattnotarangelo/google-chat-action-github-pr-review"
-  args:
-    - ${{ inputs.webhook }}
+  using: "node16"
+  main: "index.js"
