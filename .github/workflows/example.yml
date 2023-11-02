@@ -35,7 +35,7 @@ jobs:
 
       - name: Hello world action step
         id: hello
-        uses: MattNotarangelo/PR-review-google-chat-action@refs/heads/mnjstest
+        uses: MattNotarangelo/PR-review-google-chat-action@refs/heads/jjtest
         with:
           webhook: ${{ secrets.webhook }}
       # Use the output from the `hello` step
