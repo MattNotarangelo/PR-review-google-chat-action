@@ -1,23 +1,33 @@
+# name: Send notification to Google chat
+# on: [pull_request_review]
+
+# jobs:
+#   send_notification:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Google Chat Action for Github Pull Request Reviews
+#         uses: MattNotarangelo/PR-review-google-chat-action@v0.0.1
+#         with:
+#           webhook: "https://chat.googleapis.com/v1/spaces/AAAAsuwCCuQ/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=YIIweNCcTvTmNy0pqJ8og16xtORgfQBTKqlaMEELHPE%3D"
+
 name: Send notification to Google chat
-on: [pull_request_review]
+on: [pull_request, pull_request_review, pull_request_review_comment]
 
 jobs:
-  get_messages: 
-    runs-on: ubuntu-latest
-    name: get messages
-    steps:
-      - shell: bash
-        run: |  
-          curl --location 'https://chat.googleapis.com/v1/spaces/AAAAxoPtGWE/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=yHxt_zQVLby4cQ4nHxbhrM_RkIUB-GCDMLpETYHWfNk' > output.log 
-      - name: Upload output file
-        uses: actions/upload-artifact@v3
-        with:
-          name: output-log-file
-          path: output.log          
   send_notification:
     runs-on: ubuntu-latest
+    name: Send message to gchat
     steps:
-      - name: Google Chat Action for Github Pull Request Reviews
-        uses: MattNotarangelo/PR-review-google-chat-action@v0.0.1
+      - name: Checkout code
+        uses: actions/checkout@v2
         with:
-          webhook: "https://chat.googleapis.com/v1/spaces/AAAAsuwCCuQ/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=YIIweNCcTvTmNy0pqJ8og16xtORgfQBTKqlaMEELHPE%3D"
+          ref: ${{ github.ref }}
+
+      - name: Hello world action step
+        id: hello
+        uses: ./
+        with:
+          webhook: ${{ secrets.webhook }}
+      # Use the output from the `hello` step
+      - name: Get the output time
+        run: echo "The time was ${{ steps.hello.outputs.time }}"
