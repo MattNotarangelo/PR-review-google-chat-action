@@ -31,9 +31,10 @@ try {
 
   const threadKey = github.context.payload.repository.name + github.context.ref;
 
+  console.log(github);
+  
   if (github.context.eventName === "pull_request") {
     const context = github.context.payload.pull_request;
-    const id = github.context.payload.pull_request.id;
 
     const message = {
       thread: {
