@@ -3,7 +3,7 @@ import github from "@actions/github";
 import fetch from "node-fetch";
 
 function post(webhookUrl, message) {
-  fetch(webhookUrl,{
+  fetch(webhookUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=UTF-8",
@@ -12,6 +12,7 @@ function post(webhookUrl, message) {
   })
     .then((response) => {
       if (!response.ok) {
+        console.log(response.json());
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       console.log("Message sent successfully!");
@@ -20,7 +21,6 @@ function post(webhookUrl, message) {
       console.error("Error sending message:", error);
     });
 }
-
 
 try {
   // // `who-to-greet` input defined in action metadata file
@@ -39,10 +39,9 @@ try {
     const context = github.context.payload.pull_request;
     const id = github.context.payload.pull_request.id;
 
-    
     const message = {
       thread: {
-        threadKey: "jerome"
+        threadKey: "jerome",
       },
       cardsV2: [
         {
@@ -107,13 +106,12 @@ try {
       ],
     };
     post(webhookUrl, message);
-    
-    const tagger = {
-      text: "<users/all>"
-    }
-    post(webhookUrl, tagger);
+
+    // const tagger = {
+    //   text: "<users/all>",
+    // };
+    // post(webhookUrl, tagger);
   }
 } catch (error) {
   core.setFailed(error.message);
 }
-
