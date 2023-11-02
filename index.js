@@ -2,6 +2,25 @@ import core from "@actions/core";
 import github from "@actions/github";
 import fetch from "node-fetch";
 
+function post(webhookUrl, message) {
+  fetch(webhookUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json; charset=UTF-8",
+    },
+    body: JSON.stringify(message),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      console.log("Message sent successfully!");
+    })
+    .catch((error) => {
+      console.error("Error sending message:", error);
+    });
+}
+
 try {
   // // `who-to-greet` input defined in action metadata file
   // const nameToGreet = core.getInput("who-to-greet");
@@ -84,23 +103,7 @@ try {
         },
       ],
     };
-
-    fetch(webhookUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json; charset=UTF-8",
-      },
-      body: JSON.stringify(message),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        console.log("Message sent successfully!");
-      })
-      .catch((error) => {
-        console.error("Error sending message:", error);
-      });
+    post(webhookUrl, message);
   }
 } catch (error) {
   core.setFailed(error.message);
