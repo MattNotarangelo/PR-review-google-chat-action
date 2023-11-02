@@ -28,7 +28,7 @@ try {
           card: {
             header: {
               title: "New PR to review",
-              subtitle: "@" + context.owner?.login ?? "User",
+              subtitle: "@" + context.user.login,
               imageUrl: "https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png",
               imageType: "CIRCLE",
               imageAltText: "Avatar",
