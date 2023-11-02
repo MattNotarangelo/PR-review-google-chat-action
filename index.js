@@ -2,24 +2,17 @@ import core from "@actions/core";
 import github from "@actions/github";
 import fetch from "node-fetch";
 
-function post(webhookUrl, message) {
-  fetch(webhookUrl, {
+async function post(webhookUrl, message) {
+  const response = await fetch(webhookUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=UTF-8",
     },
     body: JSON.stringify(message),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        console.log(response.json());
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      console.log("Message sent successfully!");
-    })
-    .catch((error) => {
-      console.error("Error sending message:", error);
-    });
+  });
+
+  const json = await response.json();
+  console.log(json);
 }
 
 try {
@@ -33,7 +26,8 @@ try {
   // const payload = JSON.stringify(github.context.payload, undefined, 2);
   // console.log(`The event payload: ${payload}`);
 
-  const webhookUrl = core.getInput("webhook");
+  let webhookUrl = core.getInput("webhook");
+  webhookUrl += "&messageReplyOption=REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD";
 
   if (github.context.eventName === "pull_request") {
     const context = github.context.payload.pull_request;
@@ -41,7 +35,7 @@ try {
 
     const message = {
       thread: {
-        threadKey: "jerome",
+        threadKey: github.context.payload.repository.name + github.context.payload.number,
       },
       cardsV2: [
         {
@@ -105,12 +99,15 @@ try {
         },
       ],
     };
-    post(webhookUrl, message);
+    await post(webhookUrl, message);
 
-    // const tagger = {
-    //   text: "<users/all>",
-    // };
-    // post(webhookUrl, tagger);
+    const tagger = {
+      text: "<users/all>",
+      thread: {
+        threadKey: github.context.payload.repository.name + github.context.payload.number,
+      },
+    };
+    await post(webhookUrl, tagger);
   }
 } catch (error) {
   core.setFailed(error.message);
