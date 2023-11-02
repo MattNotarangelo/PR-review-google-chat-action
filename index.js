@@ -104,6 +104,11 @@ try {
       ],
     };
     post(webhookUrl, message);
+    
+    const tagger = {
+      "text": "<users/all>"
+    }
+    post(webhookUrl, tagger);
   }
 } catch (error) {
   core.setFailed(error.message);
